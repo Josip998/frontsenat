@@ -1,0 +1,22 @@
+body,
+p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+/* Hide horizontal scrollbar on a specific element */
+.element-with-horizontal-overflow {
+    overflow-x: hidden;
+}
+
+
+body {
+  background-image: url('/src/assets/images/pozadina-blur.jpeg'); /* Replace with the actual path to your image */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* This keeps the background fixed while scrolling */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  min-height: 100vh;
+  margin: 0;
+  align-items: center;
+}
