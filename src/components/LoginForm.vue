@@ -4,17 +4,76 @@
   .bottom
   .center
     h2 Login
-    input(type="email" placeholder="email")
-    input(type="password" placeholder="password")
+    input(type="text" placeholder="Username" v-model="username")
+    input(type="password" placeholder="password" v-model="password")
     div.button-container
-      router-link(to="/meetings")
-        button(type="button" class="login-button") Login
+      button(type="button" class="login-button" @click="loginUser") Login
       router-link(to="/guest-meetings")
         button(type="button" class="guest-button") Guest
 </template>
 
+<script>
+import { ref } from "vue";
+import axios from "axios";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router"; // Import the router functions
+
+export default {
+  setup() {
+    const store = useStore();
+    const router = useRouter(); // Use router for navigation
+    const username = ref("");
+    const password = ref("");
+
+    const loginUser = () => {
+      // Prepare the login data
+      const loginData = {
+        username: username.value,
+        password: password.value,
+      };
+
+      // Make a POST request using Axios
+      axios
+        .post("/api/login", loginData)
+        .then((response) => {
+          if (response.status === 200) {
+            console.log("Logged In");
+            const { user, access_token: token } = response.data;
+            store.dispatch("login", { user, token });
+            console.log("Response Data:", response.data); // Log the response data
+            // Log the user and token after dispatching
+            console.log("User in Store:", store.state.user);
+            console.log("Token in Store:", store.state.token);
+            // Use Vue Router's afterEach navigation guard to refresh the page after route change
+            router.afterEach(() => {
+              // Refresh the page after the route is fully navigated
+              window.location.reload();
+            });
+            // Redirect using router
+            router.push("/meetings");
+          } else {
+            // Handle login failure (e.g., display an error message)
+            console.error("Login failed");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    };
+
+    return {
+      username,
+      password,
+      loginUser,
+    };
+  },
+};
+</script>
+
 <style scoped lang="scss">
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
@@ -23,7 +82,8 @@ body {
 }
 
 h2 {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -32,9 +92,12 @@ h2 {
   height: 100%;
   overflow: hidden;
 
-  &:hover, &:active {
-    .top, .bottom {
-      &:before, &:after {
+  &:hover,
+  &:active {
+    .top,
+    .bottom {
+      &:before,
+      &:after {
         margin-left: 200px;
         transform-origin: -200px 50%;
         transition-delay: 0s;
@@ -48,9 +111,11 @@ h2 {
   }
 }
 
-.top, .bottom {
-  &:before, &:after {
-    content: '';
+.top,
+.bottom {
+  &:before,
+  &:after {
+    content: "";
     display: block;
     position: absolute;
     width: 200vmax;
@@ -116,40 +181,38 @@ h2 {
   }
 
   .button-container {
-  display: flex;
-  gap: 5px; /* Adjust the gap as needed */
-}
-
-
-  .guest-button, .login-button {
-  width: 100%;
-  padding: 15px;
-  margin: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-family: inherit;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-.guest-button {
-  background-color: #007BFF;
-  color: #fff;
-
-  &:hover {
-    background-color: #0056b3;
+    display: flex;
+    gap: 10px;
   }
-}
 
-.login-button {
-  background-color: #4CAF50;
-  color: #fff;
+  .guest-button,
+  .login-button {
+    width: 100%;
+    padding: 10px 30px;
 
-  &:hover {
-    background-color: #45a049;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   }
-}
 
+  .guest-button {
+    background-color: #007bff;
+    color: #fff;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .login-button {
+    background-color: #4caf50;
+    color: #fff;
+
+    &:hover {
+      background-color: #45a049;
+    }
+  }
 }
 </style>
-
