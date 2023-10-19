@@ -10,13 +10,15 @@
       <div class="meeting-details-container">
         <h2>Meeting Info</h2>
         <p>Location: {{ meeting.location }}</p>
-        <p>Online: {{ getVirtualStatus(meeting.virtual) }}</p>
+        <p v-if="meeting.virtual">
+        Link: <a :href="meeting.google_meet_link" target="_blank">{{ meeting.google_meet_link }}</a>
+      </p>
         <p>Date: {{ formatDate(meeting.start_time) }}</p>
         <p>Starts at: {{ formatTime(meeting.start_time) }}</p>
       </div>
   
       <div class="points-container">
-        <h2 style="padding-left: 10px;">Točke dnevnog reda:</h2>
+        <h2 style="padding-left: 10px;">Agenda:</h2>
         <div v-for="(point, index) in meeting.points" :key="point.id" class="point">
           <div class="point-details">
             <h3 style="font-size: 24px;">{{ index + 1 }}. {{ point.title }}</h3>
@@ -24,7 +26,7 @@
   
             <!-- Display Materials for Points -->
             <div class="point-materials">
-              <h3>Materijali:</h3>
+              <h3>Documents:</h3>
               <ul>
                 <li v-for="material in point.materials" :key="material.id">
                   <a :href="`/storage/${material.filename}`" target="_blank">
@@ -43,7 +45,7 @@
   
                   <!-- Display Materials for Subpoints -->
                   <div class="subpoint-materials">
-                    <h4>Materijali:</h4>
+                    <h4>Documents:</h4>
                     <ul>
                       <li v-for="material in subpoint.materials" :key="material.id">
                         <a :href="`/storage/${material.filename}`" target="_blank">

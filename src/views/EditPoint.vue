@@ -5,7 +5,6 @@
       <!-- Point Title and Details -->
       <input v-model="point.point.title" class="input-field" />
       <textarea v-model="point.point.details" class="textarea-field" />
-
     </div>
 
     <!-- Iterate over subpoints and create edit fields -->
@@ -110,7 +109,10 @@ export default {
           .then((response) => {
             console.log("Point update response:", response.data);
             // Handle the response as needed, e.g., show a success message
-            this.$router.push({ name: "EditMeetingDetails", params: { meetingId: this.point.point.meeting_id } });
+            this.$router.push({
+              name: "EditMeetingDetails",
+              params: { meetingId: this.point.point.meeting_id },
+            });
           })
           .catch((error) => {
             console.error("Error updating point:", error);
@@ -124,8 +126,8 @@ export default {
     addSubpoint() {
       // Create a new subpoint with empty data
       const newSubpoint = {
-        title: "",
-        details: "",
+        title: "Subpoint Title",
+        details: "Subpoint Details",
         meeting_id: this.point.point.meeting_id,
         pdfMaterial: [],
         materials: [],
@@ -179,7 +181,10 @@ export default {
         .then((response) => {
           console.log("Point delete response:", response.data);
           // Handle the response as needed, e.g., show a success message
-          this.$router.push({ name: "EditMeetingDetails", params: { meetingId: this.point.point.meeting_id } });
+          this.$router.push({
+            name: "EditMeetingDetails",
+            params: { meetingId: this.point.point.meeting_id },
+          });
         })
         .catch((error) => {
           console.error("Error deleting point:", error);
@@ -197,9 +202,10 @@ export default {
 <style scoped>
 .edit-point-container {
   max-width: 800px;
-  margin: 15px auto;
+  margin: 100px auto;
   padding: 20px;
   background-color: #f7f7f7d1;
+  min-height: 45vh;
 }
 
 .edit-point-title {

@@ -24,6 +24,8 @@
         @change="uploadNewMaterials"
         ref="fileInput"
       />
+    <button @click="RedirectBack(point.point.meeting_id)" class="edit-points-button">Go Back</button>
+
     </div>
   </div>
 </template>
@@ -48,6 +50,9 @@ export default {
     };
   },
   methods: {
+    RedirectBack(meetingId) {
+      this.$router.push({ name: "EditMeetingDetails", params: { meetingId } });
+    },
     getPointDetails() {
       // Fetch the point details, including its materials, by pointId
       axios
@@ -154,5 +159,20 @@ input {
 
 .delete-button:hover {
   background-color: #ba0000; /* Change to a different shade of red on hover */
+}
+
+.edit-points-button {
+  background-color: rgb(92, 137, 233);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 15px;
+  cursor: pointer;
+  transition: background-color 0.1s ease-in-out;
+  margin: 20px auto;
+}
+
+.edit-points-button:hover {
+  background-color: #1421da; /* Change to a different shade of red on hover */
 }
 </style>
