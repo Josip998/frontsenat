@@ -11,7 +11,10 @@
       <h2>Meeting Info</h2>
       <p>Location: {{ meeting.location }}</p>
       <p v-if="meeting.virtual">
-        Link: <a :href="meeting.google_meet_link" target="_blank">{{ meeting.google_meet_link }}</a>
+        Link:
+        <a :href="meeting.google_meet_link" target="_blank">{{
+          meeting.google_meet_link
+        }}</a>
       </p>
       <p>Date: {{ formatDate(meeting.start_time) }}</p>
       <p>Starts at: {{ formatTime(meeting.start_time) }}</p>
@@ -64,9 +67,9 @@
             </h4>
             <ul>
               <li v-for="material in point.materials" :key="material.id">
-                <a :href="`/storage/${material.filename}`" target="_blank">
-                  {{ material.filename }}
-                </a>
+                <a :href="material.document_url" target="_blank">{{
+                  material.filename
+                }}</a>
               </li>
             </ul>
             <hr />
@@ -101,12 +104,9 @@
                       v-for="material in subpoint.materials"
                       :key="material.id"
                     >
-                      <a
-                        :href="`/storage/${material.filename}`"
-                        target="_blank"
-                      >
-                        {{ material.filename }}
-                        <hr />
+                      <a :href="material.document_url" target="_blank">{{
+                        material.filename
+                      }}
                       </a>
                     </li>
                   </ul>
@@ -202,9 +202,6 @@ export default {
 </script>
 
 <style scoped>
-
-
-
 .meeting-view {
   background-color: #e5e5e5cf;
   border: 1px solid;

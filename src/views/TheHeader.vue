@@ -10,8 +10,12 @@
       >
       <button class="button" @click="logoutUser" v-if="isAuthenticated">LOGOUT</button>
       <router-link to="/guest-meetings"
-        ><button class="button">MEETINGS</button></router-link
+        ><button class="button" v-if="!isAuthenticated">MEETINGS</button></router-link
       >
+      <router-link to="/meetings"
+        ><button class="button" v-if="isAuthenticated">MEETINGS</button></router-link
+      >
+      
       <!-- End of conditional rendering -->
     </nav>
   </header>

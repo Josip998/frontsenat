@@ -9,7 +9,7 @@
             <button @click="deleteMaterial(material.id)" class="delete-button">
             Delete
           </button>
-          <a :href="`/storage/${material.filename}`" target="_blank">{{
+          <a :href="material.document_url" target="_blank">{{
             material.filename
           }}</a>
   
