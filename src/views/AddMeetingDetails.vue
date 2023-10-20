@@ -4,8 +4,8 @@
       <div v-for="(point, pointIndex) in talkingPoints" :key="pointIndex">
         <div class="point">
           <div class="point-header">
-            <input v-model="point.title" placeholder="Title" style="width: 95%;" />
-            <textarea v-model="point.details" placeholder="Details" style="width: 95%;"></textarea>
+            <input v-model="point.title" placeholder="Title" style="width: 94.5%; height: 40px; font-size: 20px;" />
+            <textarea v-model="point.details" placeholder="Details" style="width: 95%; height: 100px;"></textarea>
             <input
               type="file"
               @change="uploadMaterial(pointIndex, $event)"
@@ -27,11 +27,11 @@
               :key="subpointIndex"
             >
               <div class="subpoint">
-                <input v-model="subpoint.title" placeholder="Title" style="width: 95%;" />
+                <input v-model="subpoint.title" placeholder="Title" style="width: 94.5%; height: 20px; font-size: 14px;" />
                 <textarea
                   v-model="subpoint.details"
                   placeholder="Details"
-                  style="width: 95%;"
+                  style="width: 95%; height: 100px;"
                 ></textarea>
                 <input
                   type="file"
@@ -234,7 +234,7 @@ export default {
   justify-content: center; /* Center children vertically */
   min-height: 60vh; /* Minimum height to center vertically */
   color: #141212;
-  width: 30%;
+  width: 40%;
 }
 
 .meeting-header {
@@ -279,7 +279,7 @@ export default {
   padding: 15px 30px;
   cursor: pointer;
   transition: background-color 0.1s ease-in-out;
-  margin-left: 100px;
+  margin: 20px auto;
 }
 
 .save-button:hover {
