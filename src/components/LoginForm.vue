@@ -3,13 +3,13 @@
   .top
   .bottom
   .center
-    h2 Login
-    input(type="text" placeholder="Username" v-model="username")
-    input(type="password" placeholder="password" v-model="password")
+    h2 Prijava
+    input(type="text" placeholder="Korisničko ime" v-model="username")
+    input(type="password" placeholder="Lozinka" v-model="password")
     div.button-container
-      button(type="button" class="login-button" @click="loginUser") Login
+      button(type="button" class="login-button" @click="loginUser") Prijava
       router-link(to="/guest-meetings")
-        button(type="button" class="guest-button") Guest
+        button(type="button" class="guest-button") Gost
 </template>
 
 <script>

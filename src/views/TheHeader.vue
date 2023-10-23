@@ -6,14 +6,14 @@
     <nav class="nav-menu">
       <!-- Conditional rendering based on authentication status -->
       <router-link  to="/"
-        ><button class="button" v-if="!isAuthenticated">LOGIN</button></router-link
+        ><button class="button" v-if="!isAuthenticated">PRIJAVA</button></router-link
       >
-      <button class="button" @click="logoutUser" v-if="isAuthenticated">LOGOUT</button>
+      <button class="button" @click="logoutUser" v-if="isAuthenticated">ODJAVA</button>
       <router-link to="/guest-meetings"
-        ><button class="button" v-if="!isAuthenticated">MEETINGS</button></router-link
+        ><button class="button" v-if="!isAuthenticated">SJEDNICE</button></router-link
       >
       <router-link to="/meetings"
-        ><button class="button" v-if="isAuthenticated">MEETINGS</button></router-link
+        ><button class="button" v-if="isAuthenticated">SJEDNICE</button></router-link
       >
       
       <!-- End of conditional rendering -->

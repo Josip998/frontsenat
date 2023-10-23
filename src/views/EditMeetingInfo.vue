@@ -1,30 +1,31 @@
 <template>
   <div class="meeting-info">
-    <h2>Edit Meeting Information:</h2>
+    <h2>Uredi detalje sjednice:</h2>
     <form @submit.prevent="saveMeeting">
       <div class="form-group">
-        <label for="title">Title:</label>
+        <label for="title">Naslov:</label>
         <input type="text" id="title" v-model="meeting.title" required />
       </div>
       <div class="form-group">
-        <label for="description">Description:</label>
+        <label for="description">Opis:</label>
         <textarea id="description" v-model="meeting.description"></textarea>
       </div>
       <div class="form-group">
-        <label for="start_time">Date and Time:</label>
+        <label for="start_time">Datum i vrijeme početka:</label>
         <input
           type="datetime-local"
           id="start_time"
           v-model="meeting.start_time"
+          lang="hr-HR"
           required
         />
       </div>
       <div class="form-group">
-        <label for="location">Location:</label>
+        <label for="location">Lokacija:</label>
         <input type="text" id="location" v-model="meeting.location" />
       </div>
       <div class="form-group">
-        <label for="virtual">Virtual Meeting:</label>
+        <label for="virtual">Online sjednica:</label>
         <input
           type="checkbox"
           id="virtual"
@@ -33,15 +34,15 @@
         />
       </div>
       <div class="form-group" v-if="meeting.virtual">
-        <label for="google_meet_link">Google Meet Link:</label>
+        <label for="google_meet_link">Google meet link:</label>
         <input
           type="text"
           id="google_meet_link"
           v-model="meeting.google_meet_link"
-          placeholder="example: https://meet.google.com/amt-rttu-amx"
+          placeholder="npr: https://meet.google.com/amt-rttu-amx"
         />
       </div>
-      <button @click="saveMeeting" class="save-button">Save</button>
+      <button @click="saveMeeting" class="save-button">Spremi</button>
     </form>
   </div>
 </template>

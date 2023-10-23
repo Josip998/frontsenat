@@ -6,8 +6,8 @@
         :to="{ name: 'MeetingView', params: { meetingId: Number(meeting.id) } }"
         class="meeting-box"
       >
-        <h3>{{ meeting.id }}. {{ meeting.title }}</h3>
-        <p>{{ formatDate(meeting.start_time) }}</p>
+        <h3>{{ meeting.title }}</h3>
+        <p>{{ formatTimeAndDate(meeting.start_time) }}</p>
       </router-link>
     </div>
   </template>
@@ -22,10 +22,24 @@
       };
     },
     methods: {
-      formatDate(dateString) {
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-      },
+      formatTimeAndDate(dateString, timeZone) {
+      const date = new Date(dateString);
+
+      if (timeZone) {
+        date.setTimezoneOffset(timeZone * 60); // Postavi vremensku zonu u minutama
+      }
+
+      const optionsDate = {
+        year: "numeric",
+        month: "short", // "short" za kratak oblik, "long" za dugi oblik
+        day: "numeric",
+      };
+      const hours = date.getUTCHours().toString().padStart(2, "0"); // Get hours in 2-digit format
+      const minutes = date.getUTCMinutes().toString().padStart(2, "0"); // Get minutes in 2-digit format
+
+      const formattedDate = date.toLocaleString("hr-HR", optionsDate);
+      return `${formattedDate} ${hours}:${minutes}h`;
+    },
     },
     mounted() {
       // Make an API request to get all meetings when the component is loaded

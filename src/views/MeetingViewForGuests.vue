@@ -1,39 +1,34 @@
 <template>
   <div class="meeting-view">
     <div class="meeting-header">
-      <h1>{{ meeting.id }}. {{ meeting.title }}</h1>
-      <p>{{ meeting.description }}</p>
-      <br />
-      <p>{{ formatTimeAndDate(meeting.start_time) }}</p>
-    </div>
+      <h1>{{ meeting.title }}</h1>
+      <p style="font-size: 20px;">{{ meeting.location }}, {{ formatDate(meeting.start_time) }} u {{ formatTime(meeting.start_time) }}</p>
 
-    <div class="meeting-details-container">
-      <h2>Meeting Info</h2>
-      <p>Location: {{ meeting.location }}</p>
       <p v-if="meeting.virtual">
-        Link:
-        <a :href="meeting.google_meet_link" target="_blank">{{
+        Poveznica:
+        <a :href="meeting.google_meet_link" target="_blank" class="google-link">{{
           meeting.google_meet_link
         }}</a>
       </p>
-      <p>Date: {{ formatDate(meeting.start_time) }}</p>
-      <p>Starts at: {{ formatTime(meeting.start_time) }}</p>
     </div>
 
+
     <div class="points-container">
-      <h2 style="padding-left: 10px">Agenda:</h2>
+      <h2 style="padding-left: 10px">Dnevni red:</h2>
       <div
         v-for="(point, index) in meeting.points"
         :key="point.id"
         class="point"
       >
         <div class="point-details">
-          <h3 style="font-size: 24px">{{ index + 1 }}. {{ point.title }}</h3>
+          <h3 style="font-size: 24px; margin-top: 20px">
+            {{ index + 1 }}. {{ point.title }}
+          </h3>
           <p style="font-size: 20px">{{ point.details }}</p>
 
           <!-- Display Materials for Points -->
           <div class="point-materials">
-            <h3>Documents:</h3>
+            <h3>Dokumenti:</h3>
             <ul>
               <li v-for="material in point.materials" :key="material.id">
                 <a :href="material.document_url" target="_blank">{{
@@ -51,14 +46,14 @@
                 :key="subpoint.id"
                 class="subpoint"
               >
-                <h3 style="font-size: 16px">
+                <h3 style="font-size: 16px; margin-top: 10px">
                   {{ index + 1 }}.{{ subIndex + 1 }} {{ subpoint.title }}
                 </h3>
                 <p>{{ subpoint.details }}</p>
 
                 <!-- Display Materials for Subpoints -->
                 <div class="subpoint-materials">
-                  <h4>Documents:</h4>
+                  <h4>Dokumenti:</h4>
                   <ul>
                     <li
                       v-for="material in subpoint.materials"
@@ -92,30 +87,43 @@ export default {
     getVirtualStatus(virtual) {
       return virtual === "True" ? "Yes" : "No";
     },
-    formatTimeAndDate(dateString) {
-      const options = {
+    formatTimeAndDate(dateString, timeZone) {
+      const date = new Date(dateString);
+
+      if (timeZone) {
+        date.setTimezoneOffset(timeZone * 60); // Postavi vremensku zonu u minutama
+      }
+
+      const optionsDate = {
         year: "numeric",
-        month: "short",
+        month: "short", // "short" za kratak oblik, "long" za dugi oblik
         day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
       };
-      return new Date(dateString).toLocaleString(undefined, options);
+      const hours = date.getUTCHours().toString().padStart(2, "0"); // Get hours in 2-digit format
+      const minutes = date.getUTCMinutes().toString().padStart(2, "0"); // Get minutes in 2-digit format
+
+      const formattedDate = date.toLocaleString("hr-HR", optionsDate);
+      return `${formattedDate} ${hours}:${minutes}h`;
     },
     formatDate(dateString) {
       const options = {
         year: "numeric",
-        month: "short",
+        month: "long", // "short" za kratak oblik, "long" za dugi oblik
         day: "numeric",
       };
-      return new Date(dateString).toLocaleString(undefined, options);
+      return new Date(dateString).toLocaleString("hr-HR", options);
     },
-    formatTime(dateString) {
-      const options = {
-        hour: "numeric",
-        minute: "numeric",
-      };
-      return new Date(dateString).toLocaleString(undefined, options);
+    formatTime(dateString, timeZone) {
+      const date = new Date(dateString);
+
+      if (timeZone) {
+        date.setTimezoneOffset(timeZone * 60); // Postavi vremensku zonu u minutama
+      }
+
+      const hours = date.getUTCHours().toString().padStart(2, "0"); // Get hours in 2-digit format
+      const minutes = date.getUTCMinutes().toString().padStart(2, "0"); // Get minutes in 2-digit format
+
+      return `${hours}:${minutes}h`;
     },
   },
   created() {
@@ -157,11 +165,12 @@ export default {
   width: 50%;
   margin: 20px auto;
   padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .meeting-header {
   text-align: center;
-  background-color: #0b51f5a8;
+  background-color: #00427b;
   color: #fff;
   padding: 10px;
   margin-bottom: 20px;
@@ -169,7 +178,9 @@ export default {
 
 .meeting-details-container {
   margin-bottom: 20px;
-  text-align: center;
+  text-align: left;
+  margin: auto;
+  width: fit-content;
 }
 
 .points-container h2 {
@@ -192,6 +203,13 @@ p {
   margin: 1px;
 }
 
+.google-link{
+  color: rgb(216, 153, 98);
+}
+
+.google-link:visited {
+  color: rgb(207, 105, 4);
+}
 .points-container {
   padding: 30px;
 }

@@ -4,8 +4,8 @@
       <div v-for="(point, pointIndex) in talkingPoints" :key="pointIndex">
         <div class="point">
           <div class="point-header">
-            <input v-model="point.title" placeholder="Title" style="width: 94.5%; height: 40px; font-size: 20px;" />
-            <textarea v-model="point.details" placeholder="Details" style="width: 95%; height: 100px;"></textarea>
+            <input v-model="point.title" placeholder="Naslov" style="width: 94.5%; height: 40px; font-size: 20px;" />
+            <textarea v-model="point.details" placeholder="Opis" style="width: 95%; height: 100px;"></textarea>
             <input
               type="file"
               @change="uploadMaterial(pointIndex, $event)"
@@ -15,10 +15,10 @@
               @click="addSubpoint(pointIndex)"
               class="add-subpoint-button"
             >
-              Add Subpoint
+              Dodaj podtočku
             </button>
             <button @click="deletePoint(pointIndex)" class="delete-button">
-              Delete Point
+              Izbriši točku
             </button>
           </div>
           <div class="subpoints">
@@ -27,10 +27,10 @@
               :key="subpointIndex"
             >
               <div class="subpoint">
-                <input v-model="subpoint.title" placeholder="Title" style="width: 94.5%; height: 20px; font-size: 14px;" />
+                <input v-model="subpoint.title" placeholder="Naslov" style="width: 94.5%; height: 20px; font-size: 14px;" />
                 <textarea
                   v-model="subpoint.details"
-                  placeholder="Details"
+                  placeholder="Opis"
                   style="width: 95%; height: 100px;"
                 ></textarea>
                 <input
@@ -44,16 +44,16 @@
                   @click="deleteSubpoint(pointIndex, subpointIndex)"
                   class="delete-button"
                 >
-                  Delete Subpoint
+                  Izbriši podtočku
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button @click="addPoint" class="add-point-button">Add Point</button>
+      <button @click="addPoint" class="add-point-button">Dodaj točku</button>
     </div>
-    <button @click="confirmSave" class="save-button" v-if="hasPoints">SAVE</button>
+    <button @click="saveData" class="save-button" v-if="hasPoints">SPREMI</button>
   </div>
 </template>
 
@@ -74,25 +74,13 @@ export default {
   data() {
     return {
       talkingPoints: [],
-      isSaveConfirmed: false,
     };
   },
   methods: {
-    confirmSave() {
-      if (
-        this.isSaveConfirmed ||
-        confirm(
-          "You can not make changes after you click on save. Are you sure you want to continue?"
-        )
-      ) {
-        this.isSaveConfirmed = true;
-        this.saveData(); // Call the saveData method
-      }
-    },
     addPoint() {
       this.talkingPoints.push({
-        title: "Point Title",
-        details: "Point Details",
+        title: "Naslov točke",
+        details: "Opis točke",
         pdfMaterial: [],
         subpoints: [],
       });
@@ -100,8 +88,8 @@ export default {
     addSubpoint(pointIndex) {
       // Create a subpoint
       const subpoint = {
-        title: "Subpoint Title",
-        details: "Subpoint details",
+        title: "Naslov podtočke",
+        details: "Opis podtočke",
         pdfMaterial: [],
         parent_id: this.talkingPoints[pointIndex].id, // Include parent_id
       };
@@ -223,8 +211,8 @@ export default {
 
 <style scoped>
 .meeting {
-  font-family: Arial, sans-serif;
-  background-color: #f8f8f8b6;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #e5e5e5e3;
   margin: auto;
   margin-top: 100px;
   margin-bottom: 100px;

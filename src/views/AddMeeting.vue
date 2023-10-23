@@ -1,44 +1,45 @@
 <template>
   <div class="meeting">
-    <h2>Add new meeting:</h2>
+    <h2>Dodaj novu sjednicu:</h2>
     <form @submit.prevent="saveMeeting">
       <div class="form-group">
-        <label for="title">Title*:</label>
+        <label for="title">Naslov*:</label>
         <input
           type="text"
           v-model="meetingName"
           :readonly="isSaved"
-          placeholder="Meeting Title"
+          placeholder="Naslov sjednice"
         />
       </div>
       <div class="form-group">
-        <label for="title">Date and Start Time*:</label>
+        <label for="title">Datum i vrijeme početka*:</label>
         <input
           type="datetime-local"
           v-model="startDateTime"
           :readonly="isSaved"
+          lang="hr-HR"
         />
       </div>
       <div class="form-group">
-        <label for="title">Description:</label>
+        <label for="title">Opis:</label>
         <input
           type="text"
           v-model="description"
           :readonly="isSaved"
-          placeholder="Meeting Description"
+          placeholder="Opis (nije obavezno)"
         />
       </div>
       <div class="form-group">
-        <label for="title">Location</label>
+        <label for="title">Lokacija</label>
         <input
           type="text"
           v-model="location"
           :readonly="isSaved"
-          placeholder="Meeting Location"
+          placeholder="Lokacija (nije obavezno)"
         />
       </div>
       <div class="form-group">
-        <label for="title">Online Meeting:</label>
+        <label for="title">Online sjednica:</label>
         <input
           type="checkbox"
           v-model="virtual"
@@ -47,15 +48,20 @@
         />
       </div>
       <div class="form-group" v-if="virtual">
-        <label for="title">Google Meet Link:</label>
-        <input type="text" v-model="googleMeetLink" :readonly="isSaved" placeholder="example: https://meet.google.com/amt-rttu-amx" />
+        <label for="title">Google meet link:</label>
+        <input
+          type="text"
+          v-model="googleMeetLink"
+          :readonly="isSaved"
+          placeholder="npr: https://meet.google.com/amt-rttu-amx"
+        />
       </div>
       <button @click="saveData" class="save-button" v-if="!isSaved">
-        Save
+        Spremi
       </button>
     </form>
     <div v-if="showValidationWarning" class="validation-warning">
-      Please fill in the required fields * (Title, Date and Start Time).
+      Molimo te ispuni obavezna polja * (Naslov, Datum i vrijeme početka).
     </div>
   </div>
 </template>
@@ -119,8 +125,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .validation-warning {
   color: red;
   margin: 20px;

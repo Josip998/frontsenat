@@ -10,24 +10,24 @@
           class="add-points-button"
           @click="redirectToMeetingDetails(meeting.id)"
         >
-          Add Points
+          Dodaj točke
         </button>
         <button
           v-else
           class="edit-points-button"
           @click="redirectToEditMeetingDetails(meeting.id)"
         >
-          Edit Meeting
+          Uredi sjednicu
         </button>
         <button
           @click="deleteMeeting(meeting.id)"
           class="delete-meeting-button"
         >
-          Delete Meeting
+          Izbriši sjednicu
         </button>
       </div>
-      <h3>{{ meeting.id }}. {{ meeting.title }}</h3>
-      <p>{{ formatDate(meeting.start_time) }}</p>
+      <h3>{{ meeting.title }}</h3>
+      <p>{{ formatTimeAndDate(meeting.start_time) }}</p>
       <!-- Conditionally render the "Add Points" button -->
     </div>
   </div>
@@ -43,9 +43,23 @@ export default {
     };
   },
   methods: {
-    formatDate(dateString) {
-      const options = { year: "numeric", month: "short", day: "numeric" };
-      return new Date(dateString).toLocaleDateString(undefined, options);
+    formatTimeAndDate(dateString, timeZone) {
+      const date = new Date(dateString);
+
+      if (timeZone) {
+        date.setTimezoneOffset(timeZone * 60); // Postavi vremensku zonu u minutama
+      }
+
+      const optionsDate = {
+        year: "numeric",
+        month: "short", // "short" za kratak oblik, "long" za dugi oblik
+        day: "numeric",
+      };
+      const hours = date.getUTCHours().toString().padStart(2, "0"); // Get hours in 2-digit format
+      const minutes = date.getUTCMinutes().toString().padStart(2, "0"); // Get minutes in 2-digit format
+
+      const formattedDate = date.toLocaleString("hr-HR", optionsDate);
+      return `${formattedDate} ${hours}:${minutes}h`;
     },
     redirectToMeetingDetails(meetingId) {
       this.$router.push({ name: "MeetingDetails", params: { meetingId } });
@@ -54,7 +68,7 @@ export default {
       this.$router.push({ name: "EditMeetingDetails", params: { meetingId } });
     },
     deleteMeeting(meetingId) {
-      if (confirm("Are you sure you want to delete this meeting?")) {
+      if (confirm("Jeste li sigurni da želite izbrisati ovu sjednicu?")) {
         axios
           .delete(`/api/meetings/${meetingId}`)
           .then((response) => {
@@ -160,7 +174,7 @@ export default {
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
-  margin-left: 90px;
+  margin-left: 80px;
   transition: background-color 0.1s ease-in-out;
 }
 
@@ -190,6 +204,7 @@ export default {
   padding: 5px 10px;
   cursor: pointer;
   transition: background-color 0.1s ease-in-out;
+  margin-right: 15px;
 }
 
 .add-points-button:hover {

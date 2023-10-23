@@ -1,7 +1,7 @@
 <template>
   <div class="edit-point-container">
     <div class="point-container">
-      <h1 class="edit-point-title">Edit Point</h1>
+      <h1 class="edit-point-title">Uredi točku:</h1>
       <!-- Point Title and Details -->
       <input v-model="point.point.title" class="input-field" />
       <textarea v-model="point.point.details" class="textarea-field" />
@@ -15,21 +15,21 @@
         :key="subpoint.id"
         class="subpoint-container"
       >
-        <h2 class="subpoint-title">Edit Subpoint {{ subpointIndex + 1 }}</h2>
+        <h2 class="subpoint-title">Uredi podtočku {{ subpointIndex + 1 }}</h2>
         <input
           v-model="subpoint.title"
-          :placeholder="'Subpoint Title ' + (subpointIndex + 1)"
+          :placeholder="'Naslov podtočke ' + (subpointIndex + 1)"
           class="input-field"
         />
         <textarea
           v-model="subpoint.details"
-          :placeholder="'Subpoint Details ' + (subpointIndex + 1)"
+          :placeholder="'Opis podtočke ' + (subpointIndex + 1)"
           class="textarea-field"
         />
         <br />
         <!-- Button to Delete Subpoint -->
         <button @click="deleteSubpoint(subpointIndex)" class="delete-button">
-          Delete Subpoint
+          Izbriši podtočku
         </button>
         <!-- Button to Save Subpoint -->
         <button
@@ -40,18 +40,18 @@
           "
           class="add-points-button"
         >
-          Save Subpoint
+          Spremi podtočku
         </button>
       </div>
     </div>
     <!-- Button to Add Subpoint -->
     <button @click="addSubpoint" class="edit-points-button">
-      Add Subpoint
+      Dodaj podtočku
     </button>
     <!-- Button to Delete Point -->
-    <button @click="deletePoint" class="delete-button">Delete Point</button>
+    <button @click="deletePoint" class="delete-button">Izbriši točku</button>
     <!-- Save Point Button -->
-    <button @click="savePoint" class="add-points-button">Save Point</button>
+    <button @click="savePoint" class="add-points-button">Spremi točku</button>
   </div>
 </template>
 
@@ -280,7 +280,8 @@ textarea.textarea-field {
   padding: 5px 10px;
   cursor: pointer;
   transition: background-color 0.1s ease-in-out;
-  margin-right: 500px;
+  margin-right: 400px;
+
 }
 
 .edit-points-button:hover {

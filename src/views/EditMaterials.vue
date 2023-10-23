@@ -7,7 +7,7 @@
       <ul>
         <li v-for="(material, index) in point.point.materials" :key="index">
             <button @click="deleteMaterial(material.id)" class="delete-button">
-            Delete
+            Izbriši
           </button>
           <a :href="material.document_url" target="_blank">{{
             material.filename
@@ -17,14 +17,14 @@
       </ul>
 
       <!-- File Input for Uploading New Materials -->
-      <h3>Add Material:</h3>
+      <h3>Dodaj dokument:</h3>
       <input
         type="file"
         name="file"
         @change="uploadNewMaterials"
         ref="fileInput"
       />
-    <button @click="RedirectBack(point.point.meeting_id)" class="edit-points-button">Go Back</button>
+    <button @click="RedirectBack(point.point.meeting_id)" class="edit-points-button">Povratak</button>
 
     </div>
   </div>
