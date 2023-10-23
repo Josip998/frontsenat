@@ -5,7 +5,7 @@ p {
 
 
 /* Hide horizontal scrollbar on a specific element */
-.element-with-horizontal-overflow {
+.app-container {
     overflow-x: hidden;
 }
 

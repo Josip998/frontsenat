@@ -5,7 +5,7 @@
           <h3>Copyright © SUMIT 2023</h3>
         </div>
         <div class="footer-section"> 
-            <img src="/src/assets/images/logo-sivi.png" alt="Your Logo" />
+            <img src="/src/assets/images/logo-sivi.png" alt="sivi logo" />
         </div>
       </div>
     </footer>
@@ -15,7 +15,7 @@
   .app-footer {
     background-color: #333;
     color: #fff;
-    
+    padding: 10px 50px;
   }
   
   .footer-content {
@@ -25,9 +25,10 @@
   }
   
   .footer-section {
-    text-align: center;
-    margin: 20px 200px;
-    height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
   }
   
   h3 {
