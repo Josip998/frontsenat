@@ -2,7 +2,7 @@
   <div class="meeting-view">
     <div class="meeting-header">
       <h1>{{ meeting.title }}</h1>
-      <p style="font-size: 20px;">{{ meeting.location }}, {{ formatDate(meeting.start_time) }} u {{ formatTime(meeting.start_time) }}</p>
+      <p style="font-size: 24px; font-family: 'Times New Roman', Times, serif;">{{ meeting.location }}, {{ formatDate(meeting.start_time) }} u {{ formatTime(meeting.start_time) }}</p>
 
       <p v-if="meeting.virtual">
         Poveznica:
@@ -14,7 +14,7 @@
 
 
     <div class="points-container">
-      <h2 style="padding-left: 10px">Dnevni red:</h2>
+      <h1 style="padding-left: 10px">Dnevni red:</h1>
       <div
         v-for="(point, index) in meeting.points"
         :key="point.id"
@@ -158,19 +158,20 @@ export default {
 
 <style scoped>
 .meeting-view {
-  background-color: #e5e5e5e3;
+  background-color: #ffffffec;
+  background-image: url('/src/assets/images/textured-paper.png');
   border: 1px solid;
   justify-content: center;
   align-items: center;
   width: 50%;
   margin: 20px auto;
   padding: 10px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .meeting-header {
   text-align: center;
-  background-color: #00427b;
+  background-color: #00427bee;
   color: #fff;
   padding: 10px;
   margin-bottom: 20px;

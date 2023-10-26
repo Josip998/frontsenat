@@ -5,7 +5,7 @@
   .center
     h2 Prijava
     input(type="text" placeholder="Korisničko ime" v-model="username")
-    input(type="password" placeholder="Lozinka" v-model="password")
+    input(type="password" placeholder="Lozinka" v-model="password" @keyup.enter="loginUser")
     div.button-container
       button(type="button" class="login-button" @click="loginUser") Prijava
       router-link(to="/guest-meetings")
