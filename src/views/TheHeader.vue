@@ -5,11 +5,11 @@
     </div>
     <nav class="nav-menu">
       <!-- Conditional rendering based on authentication status -->
-      <router-link  to="/"
+      <router-link  to="/login"
         ><button class="button" v-if="!isAuthenticated">PRIJAVA</button></router-link
       >
       <button class="button" @click="logoutUser" v-if="isAuthenticated">ODJAVA</button>
-      <router-link to="/guest-meetings"
+      <router-link to="/"
         ><button class="button" v-if="!isAuthenticated">SJEDNICE</button></router-link
       >
       <router-link to="/meetings"

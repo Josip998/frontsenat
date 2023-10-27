@@ -13,9 +13,9 @@ const requireAuth = (to, from, next) => {
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: () => import('../views/Home.vue'),
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue'),
   },
   {
     path: '/meetings',
@@ -67,7 +67,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/guest-meetings',
+    path: '/',
     name: 'GuestMeetings',
     component: () => import('../views/MeetingsListForGuests.vue'),
     props: true,
