@@ -8,7 +8,7 @@
     input(type="password" placeholder="Lozinka" v-model="password" @keyup.enter="loginUser")
     div.button-container
       button(type="button" class="login-button" @click="loginUser") Prijava
-      router-link(to="/guest-meetings")
+      router-link(to="/")
         button(type="button" class="guest-button") Gost
 </template>
 
